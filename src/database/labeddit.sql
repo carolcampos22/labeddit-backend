@@ -71,7 +71,7 @@ VALUES
     ('c1', 'p02', 'u03', 'Escolhi aquilo para o qual estudei: full-stack! Foi um ano me dedicando a isso, não vejo sentido em ir só pra um ou só pra outro!'),
     ('c2', 'p02', 'u01', 'Já eu vejo sentido em escolher um dos três. Muitas pessoas se identificam mais com um do que com outro, seja por dificuldades/facilidades ou por gosto.')
 
-SELECT * FROM users;
+SELECT * FROM posts;
 
 DROP TABLE users;
 DROP TABLE posts;

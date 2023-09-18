@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { BaseDatabase } from './database/BaseDatabase'
 import { userRouter } from './router/userRouter'
+import { postRouter } from './router/postRouter'
 
 dotenv.config()
 
@@ -18,6 +19,7 @@ app.listen(3003, () => {
 
 app.use("/users", userRouter)
 
-//app.use("/posts", postRouter)
+app.use("/posts", postRouter)
 
 //https://bcrypt-generator.com/
+//ChatGPT: LABEDDIT
