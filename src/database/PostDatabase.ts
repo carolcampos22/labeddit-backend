@@ -70,7 +70,7 @@ export class PostDatabase extends BaseDatabase {
                 `${PostDatabase.TABLE_POSTS}.comments`,
                 `${PostDatabase.TABLE_POSTS}.created_at`,
                 `${PostDatabase.TABLE_POSTS}.updated_at`,
-                `${UserDatabase.TABLE_USERS}.name as creator_name`
+                `${UserDatabase.TABLE_USERS}.nickname as creator_nickname`
             )
             .join(`${UserDatabase.TABLE_USERS}`,
                 `${PostDatabase.TABLE_POSTS}.creator_id`,
