@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import { BaseDatabase } from './database/BaseDatabase'
 import { userRouter } from './router/userRouter'
 import { postRouter } from './router/postRouter'
+import { commentsRouter } from './router/CommentsRouter'
 
 dotenv.config()
 
@@ -20,6 +21,9 @@ app.listen(3003, () => {
 app.use("/users", userRouter)
 
 app.use("/posts", postRouter)
+
+app.use("/comments", commentsRouter)
+
 
 //https://bcrypt-generator.com/
 //ChatGPT: LABEDDIT

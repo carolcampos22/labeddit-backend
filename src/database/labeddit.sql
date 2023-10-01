@@ -12,7 +12,6 @@ CREATE TABLE users(
 CREATE TABLE posts(
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     creator_id TEXT UNIQUE NOT NULL,
-    title TEXT NOT NULL,
     content TEXT NOT NULL,
     likes INTEGER DEFAULT (0) NOT NULL,
     dislikes INTEGER DEFAULT (0) NOT NULL,
@@ -61,17 +60,19 @@ VALUES
     ('u02', '@bel', 'bel@email.com', '$2a$12$VSFxFt8K6Wog542mH8psbuL.CaZDah2gGGtrxKrJ48ms5EgxhwN2y', 'ADMIN'),/*osaetij*/
     ('u03', '@si', 'sisi@email.com', '$2a$12$.CvvRUD4fsijWNla11m7/.xtwO3favDAvYix/HMx6KapkgkooR7pq', 'NORMAL');/*sisi123*/
 
-INSERT INTO posts(id, creator_id, title, content)
+INSERT INTO posts(id, creator_id, content)
 VALUES
-    ('p01', 'u02', 'O que vc tem aprendido ultimamente?', 'Com o avanço da tecnologia, são muitas as opções de cursos e bootcamps que encontramos na internet, com diversos conteúdos e tecnologias pra serem aprendidas, Mas o que o mercado de trabalho mais tem pedido como experiência? O que mais vale a pena aprender, React, Angular, Vue...? Front ou backend?'),
-    ('p02', 'u03', 'Front-end, back-end ou full-stack?', 'Muitas pessoas terminam um bootcamp de desenvolvimento web full-stack já sabendo que caminho vai seguir. Outras, ficam nessa dúvida. O que você acha? Deixem seus comentários!!');
+    ('p01', 'u02', 'Com o avanço da tecnologia, são muitas as opções de cursos e bootcamps que encontramos na internet, com diversos conteúdos e tecnologias pra serem aprendidas, Mas o que o mercado de trabalho mais tem pedido como experiência? O que mais vale a pena aprender, React, Angular, Vue...? Front ou backend?'),
+    ('p02', 'u03', 'Muitas pessoas terminam um bootcamp de desenvolvimento web full-stack já sabendo que caminho vai seguir. Outras, ficam nessa dúvida. O que você acha? Deixem seus comentários!!');
 
 INSERT INTO comments (id, id_post, creator_id, message)
 VALUES
     ('c1', 'p02', 'u03', 'Escolhi aquilo para o qual estudei: full-stack! Foi um ano me dedicando a isso, não vejo sentido em ir só pra um ou só pra outro!'),
-    ('c2', 'p02', 'u01', 'Já eu vejo sentido em escolher um dos três. Muitas pessoas se identificam mais com um do que com outro, seja por dificuldades/facilidades ou por gosto.')
+    ('c2', 'p02', 'u01', 'Já eu vejo sentido em escolher um dos três. Muitas pessoas se identificam mais com um do que com outro, seja por dificuldades/facilidades ou por gosto.');
 
 SELECT * FROM posts;
+SELECT * FROM users;
+SELECT * FROM comments;
 
 DROP TABLE users;
 DROP TABLE posts;
