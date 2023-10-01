@@ -1,39 +1,41 @@
-export interface PostDB {
+export interface CommentsModel {
     id: string,
-    creator_id: string,
-    content: string,
+    idPost: string,
+    creatorId: string,
+    message: string,
     likes: number,
     dislikes: number,
-    comments: number,
-    created_at: string,
-    updated_at: string
-}
-
-export interface PostDBWithCreatorNickname {
-    id: string,
-    creator_id: string,
-    content: string,
-    likes: number,
-    dislikes: number,
-    comments: number,
-    created_at: string,
-    updated_at: string,
-    creator_nickname: string
-}
-
-export interface PostModel {
-    id: string,
-    content: string,
-    likes: number,
-    dislikes: number,
-    comments: number,
     createdAt: string,
     updatedAt: string,
     creator: {
         id: string,
-        nickname: string
+        creatorNickname: string
     }
 }
+
+export interface CommentsDB {
+    id: string,
+    id_post: string,
+    creator_id: string,
+    message: string,
+    likes: number,
+    dislikes: number,
+    created_at: string,
+    updated_at: string
+}
+
+export interface CommentsDBWithCreatorNickname {
+    id: string,
+    id_post: string,
+    creator_id: string,
+    creator_nickname: string
+    message: string,
+    likes: number,
+    dislikes: number,
+    created_at: string,
+    updated_at: string    
+}
+
 
 export interface LikeOrDislikeDB {
     user_id: string,
@@ -42,23 +44,21 @@ export interface LikeOrDislikeDB {
 
 }
 
-export enum POST_LIKE {
-    LIKED = "LIKED",
-    DISLIKED = "DISLIKED"
-}
 
-export class Post {
+export class Comments {
     constructor(
         private id: string,
-        private content: string,
+        private idPost: string,
+        private creatorId: string,
+        private creatorNickname: string,
+        private message: string,
         private likes: number,
         private dislikes: number,
-        private comments: number,
         private createdAt: string,
-        private updatedAt: string,
-        private creatorId: string,
-        private creatorNickname: string
+        private updatedAt: string
+
     ) { }
+
 
     public getId(): string {
         return this.id
@@ -68,13 +68,36 @@ export class Post {
         this.id = value
     }
 
-
-    public getContent(): string {
-        return this.content
+    public getIdPost(): string {
+        return this.idPost
     }
 
-    public setContent(value: string): void {
-        this.content = value
+    public setIdPost(value: string): void {
+        this.idPost = value
+    }
+
+    public getCreatorId(): string {
+        return this.creatorId
+    }
+
+    public setCreatorId(value: string): void {
+        this.creatorId = value
+    }
+
+    public getCreatorNickname(): string {
+        return this.creatorNickname
+    }
+
+    public setCreatorNickname(value: string): void {
+        this.creatorNickname = value
+    }
+
+    public getMessage(): string {
+        return this.message
+    }
+
+    public setMessage(value: string): void {
+        this.message = value
     }
 
     public getLikes(): number {
@@ -109,15 +132,6 @@ export class Post {
         this.dislikes = value
     }
 
-    public getComments(): number {
-        return this.comments
-    }
-
-    public setComments(value: number): void {
-        this.comments = value
-    }
-
-
     public getCreatedAt(): string {
         return this.createdAt
     }
@@ -132,51 +146,38 @@ export class Post {
 
     public setUpdatedAt(value: string): void {
         this.updatedAt = value
+
     }
 
-    public getCreatorId(): string {
-        return this.creatorId
-    }
-
-    public setCreatorId(value: string): void {
-        this.creatorId = value
-    }
-
-    public getCreatorNickname(): string {
-        return this.creatorNickname
-    }
-
-    public setCreatorNickname(value: string): void {
-        this.creatorNickname = value
-    }
-
-    public toDBModel(): PostDB {
+    public CommentsToDBModel(): CommentsDB {
         return {
             id: this.id,
+            id_post: this.idPost,
             creator_id: this.creatorId,
-            content: this.content,
+            message: this.message,
             likes: this.likes,
             dislikes: this.dislikes,
-            comments: this.comments,
             created_at: this.createdAt,
             updated_at: this.updatedAt
         }
     }
 
-    public toBusinessModel(): PostModel {
+    public CommentsToBusinessModel(): CommentsModel {
         return {
             id: this.id,
-            content: this.content,
+            idPost: this.idPost,
+            creatorId: this.creatorId,
+            message: this.message,
             likes: this.likes,
             dislikes: this.dislikes,
-            comments: this.comments,
             createdAt: this.createdAt,
             updatedAt: this.updatedAt,
             creator: {
-                id: this.creatorId,
-                nickname: this.creatorNickname
+                id: this.id,
+                creatorNickname: this.creatorNickname
             }
         }
     }
 
 }
+

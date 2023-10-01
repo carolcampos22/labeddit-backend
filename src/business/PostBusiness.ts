@@ -20,7 +20,7 @@ export class PostBusiness {
     ) {}
 
     public createPost = async (input: CreatePostInputDTO): Promise <CreatePostOutputDTO> => {
-        const {title, content, token} = input
+        const {content, token} = input
 
         const payload = this.tokenManager.getPayload(token)
 
@@ -32,7 +32,6 @@ export class PostBusiness {
 
         const post = new Post(
             id,
-            title,
             content,
             0,
             0,
@@ -60,7 +59,6 @@ export class PostBusiness {
         const posts = postsDBWithCreatorNickname.map((postCreatorNickname) => {
             const post = new Post(
                 postCreatorNickname.id,
-                postCreatorNickname.title,
                 postCreatorNickname.content,
                 postCreatorNickname.likes,
                 postCreatorNickname.dislikes,
@@ -80,7 +78,7 @@ export class PostBusiness {
     }
 
     public editPost = async (input: EditPostInputDTO): Promise <EditPostOutputDTO> => {
-        const {title, content, token, idToEdit} = input
+        const {content, token, idToEdit} = input
 
         const payload = this.tokenManager.getPayload(token)
 
@@ -100,7 +98,6 @@ export class PostBusiness {
 
         const post = new Post(
             postDB.id,
-            postDB.title,
             postDB.content,
             postDB.likes,
             postDB.dislikes,
@@ -112,7 +109,7 @@ export class PostBusiness {
         )
 
         post.setContent(content)
-        post.setTitle(title)
+       
 
         const updatedPostdDB = post.toDBModel()
 
@@ -168,7 +165,6 @@ export class PostBusiness {
 
         const post = new Post(
             postDBWithCreatorNickname.id,
-            postDBWithCreatorNickname.title,
             postDBWithCreatorNickname.content,
             postDBWithCreatorNickname.likes,
             postDBWithCreatorNickname.dislikes,
@@ -221,5 +217,6 @@ export class PostBusiness {
         return output
     }
 
+    
     
 }
