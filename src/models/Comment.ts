@@ -1,23 +1,8 @@
-export interface CommentsModel {
-    id: string,
-    idPost: string,
-    creatorId: string,
-    message: string,
-    likes: number,
-    dislikes: number,
-    createdAt: string,
-    updatedAt: string,
-    creator: {
-        id: string,
-        creatorNickname: string
-    }
-}
-
 export interface CommentsDB {
     id: string,
     id_post: string,
     creator_id: string,
-    message: string,
+    message: string, 
     likes: number,
     dislikes: number,
     created_at: string,
@@ -37,6 +22,22 @@ export interface CommentsDBWithCreatorNickname {
 }
 
 
+export interface CommentsModel {
+    id: string,
+    idPost: string,
+    creatorId: string,
+    message: string,
+    likes: number,
+    dislikes: number,
+    createdAt: string,
+    updatedAt: string,
+    creator: {
+        id: string,
+        creatorNickname: string
+    }
+}
+
+
 export interface LikeOrDislikeDB {
     user_id: string,
     post_id: string,
@@ -46,6 +47,7 @@ export interface LikeOrDislikeDB {
 
 
 export class Comments {
+    
     constructor(
         private id: string,
         private idPost: string,
@@ -91,6 +93,7 @@ export class Comments {
     public setCreatorNickname(value: string): void {
         this.creatorNickname = value
     }
+
 
     public getMessage(): string {
         return this.message
@@ -162,6 +165,7 @@ export class Comments {
         }
     }
 
+
     public CommentsToBusinessModel(): CommentsModel {
         return {
             id: this.id,
@@ -180,4 +184,3 @@ export class Comments {
     }
 
 }
-

@@ -47,7 +47,7 @@ export class CommentsBusiness {
     }
 
 
-    public insertComment = async (input: CreateCommentInputDTO): Promise <CreateCommentOutputDTO> => {
+    public createComment = async (input: CreateCommentInputDTO): Promise <CreateCommentOutputDTO> => {
         const {idPost, message, token} = input
 
         const payload = this.tokenManager.getPayload(token)
@@ -56,13 +56,15 @@ export class CommentsBusiness {
             throw new UnauthorizedError()
         }
 
+        const {id: creatorId, nickname: creatorNickname} = payload;
+
         const id = this.idGenerator.generate()
 
         const comment = new Comments(
             id,
             idPost,
-            payload.id,
-            payload.nickname,
+            creatorId,
+            creatorNickname,
             message,
             0,
             0,
@@ -70,15 +72,11 @@ export class CommentsBusiness {
             new Date().toISOString()
         )
 
-        /**private id: string,
-        private idPost: string,
-        private creatorId: string,
-        private message: string,
-        private likes: number,
-        private dislikes: number,
-        private createdAt: string,
-        private updatedAt: string */
+        await this.commentsDatabase.insertComment(comment.CommentsToDBModel())
 
-        // await this.commentsDatabase.insertComment(comment.CommentsToDBModel())
+        const output: CreateCommentOutputDTO = undefined
+
+        return output
+        
     }
 }

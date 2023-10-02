@@ -37,14 +37,15 @@ export class CommentsController {
     public createComment = async (req: Request, res: Response) => {
         try {
             const input = CreateCommentSchema.parse({
-                idPost: req.params.idPost,
+                idPost: req.body.idPost,
                 message: req.body.message,
                 token: req.headers.authorization
             })
 
-            const output = await this.commentsBusiness.insertComment(input)
+            const output = await this.commentsBusiness.createComment(input)
 
             res.status(201).send(output)
+            
         } catch (error) {
             console.log(error)
 
