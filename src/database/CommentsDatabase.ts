@@ -5,7 +5,7 @@ import { UserDatabase } from "./UserDatabase"
 export class CommentsDatabase extends BaseDatabase {
     public static TABLE_COMMENTS = "comments"
 
-    public insertComment = async (commentDB: CommentsDBWithCreatorNickname): Promise<void> => {
+    public insertComment = async (commentDB: CommentsDB): Promise<void> => {
         await BaseDatabase
             .connection(CommentsDatabase.TABLE_COMMENTS)
             .insert(commentDB)
