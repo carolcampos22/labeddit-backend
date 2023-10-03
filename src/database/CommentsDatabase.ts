@@ -1,5 +1,6 @@
 import { CommentsDB, CommentsDBWithCreatorNickname } from "../models/Comment"
 import { BaseDatabase } from "./BaseDatabase"
+import { PostDatabase } from "./PostDatabase"
 import { UserDatabase } from "./UserDatabase"
 
 export class CommentsDatabase extends BaseDatabase {
@@ -12,7 +13,7 @@ export class CommentsDatabase extends BaseDatabase {
     }
 
     public getComments = async (idPost: string): Promise<CommentsDBWithCreatorNickname[]> => {
-        
+
         const result = await BaseDatabase
             .connection(CommentsDatabase.TABLE_COMMENTS)
             .select(
@@ -35,5 +36,31 @@ export class CommentsDatabase extends BaseDatabase {
             )
 
         return result as CommentsDBWithCreatorNickname[]
+    }
+
+    public incrementComments = async (idPost: string): Promise<void> => {
+        await BaseDatabase.connection(PostDatabase.TABLE_POSTS)
+            .where({ id: idPost })
+            .increment("comments")
+    }
+
+    public decrementComments = async (idPost: string): Promise<void> => {
+        await BaseDatabase.connection(PostDatabase.TABLE_POSTS)
+            .where({ id: idPost })
+            .decrement("comments")
+    }
+
+    public deleteCommentById = async (id: string): Promise<void> => {
+        await BaseDatabase
+            .connection(CommentsDatabase.TABLE_COMMENTS)
+            .delete()
+            .where({ id })
+    }
+
+    public findCommentById = async (id: string): Promise<CommentsDB | undefined> => {
+        const [result] = await BaseDatabase.connection(CommentsDatabase.TABLE_COMMENTS).select().where({ id })
+
+        return result as CommentsDB | undefined
+
     }
 }

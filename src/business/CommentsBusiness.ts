@@ -1,9 +1,13 @@
 import { CommentsDatabase } from "../database/CommentsDatabase";
 import { CreateCommentInputDTO, CreateCommentOutputDTO } from "../dtos/comments/createComment.dto";
+import { DeleteCommentInputDTO, DeleteCommentOutputDTO } from "../dtos/comments/deleteComment.dto";
 import { GetCommentsInputDTO, GetCommentsOutoutDTO } from "../dtos/comments/getComments.dto";
 import { BadRequestError } from "../errors/BadRequestError";
+import { ForbiddenError } from "../errors/ForbiddenError";
+import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { Comments, CommentsDB } from "../models/Comment";
+import { USER_ROLES } from "../models/User";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 
@@ -79,4 +83,36 @@ export class CommentsBusiness {
         return output
         
     }
+
+    public deleteComment = async (input: DeleteCommentInputDTO): Promise<DeleteCommentOutputDTO> => {
+        const {idToDelete, token} = input;
+
+        const payload = this.tokenManager.getPayload(token)
+        if(!payload){
+            throw new UnauthorizedError()
+        }
+
+        const commentDB = await this.commentsDatabase.findCommentById(idToDelete)
+
+        if(!commentDB){
+            throw new NotFoundError("Comentário com a ID informada não existe")
+        }
+
+        const {id, role} = payload
+
+        if(role !== USER_ROLES.ADMIN) {
+            if (id !== commentDB.creator_id) {
+                throw new ForbiddenError("Somente quem criou o comentário pode deletá-lo.")
+            }
+        }
+
+        await this.commentsDatabase.deleteCommentById(idToDelete)
+        
+        const output: DeleteCommentOutputDTO = undefined
+
+        return output
+
+    }
+
+    
 }
