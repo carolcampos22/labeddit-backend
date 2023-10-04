@@ -17,4 +17,5 @@ const commentsController = new CommentsController(
 
 commentsRouter.post("/", commentsController.createComment)
 commentsRouter.get("/:id", commentsController.getComments)
+commentsRouter.put("/:id", commentsController.editComment)
 commentsRouter.delete("/:id", commentsController.deleteComment)
