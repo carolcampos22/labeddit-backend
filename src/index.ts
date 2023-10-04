@@ -27,3 +27,4 @@ app.use("/comments", commentsRouter)
 
 //https://bcrypt-generator.com/
 //ChatGPT: LABEDDIT
+//https://dbdiagram.io/d/INTEGRADOR-64f3741502bd1c4a5edacf77

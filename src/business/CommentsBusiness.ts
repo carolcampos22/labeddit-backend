@@ -1,6 +1,7 @@
 import { CommentsDatabase } from "../database/CommentsDatabase";
 import { CreateCommentInputDTO, CreateCommentOutputDTO } from "../dtos/comments/createComment.dto";
 import { DeleteCommentInputDTO, DeleteCommentOutputDTO } from "../dtos/comments/deleteComment.dto";
+import { EditCommentInputDTO, EditCommentOutputDTO } from "../dtos/comments/editComments.dto";
 import { GetCommentsInputDTO, GetCommentsOutoutDTO } from "../dtos/comments/getComments.dto";
 import { BadRequestError } from "../errors/BadRequestError";
 import { ForbiddenError } from "../errors/ForbiddenError";
@@ -45,6 +46,7 @@ export class CommentsBusiness {
         })
 
         const output: GetCommentsOutoutDTO = comments
+        
 
         return output
 
@@ -64,6 +66,12 @@ export class CommentsBusiness {
 
         const id = this.idGenerator.generate()
 
+        const commentDB = await this.commentsDatabase.findCommentById(id)
+
+        if(!commentDB){
+            throw new NotFoundError("Comentário com a ID informada não existe")
+        }
+
         const comment = new Comments(
             id,
             idPost,
@@ -77,11 +85,59 @@ export class CommentsBusiness {
         )
 
         await this.commentsDatabase.insertComment(comment.CommentsToDBModel())
+        await this.commentsDatabase.incrementComments(commentDB.id)
 
         const output: CreateCommentOutputDTO = undefined
 
         return output
         
+    }
+
+    public editComment = async (input: EditCommentInputDTO): Promise<EditCommentOutputDTO> => {
+        const {message, token, idToEdit} = input
+
+        const payload = this.tokenManager.getPayload(token)
+
+        if(!payload){
+            throw new UnauthorizedError()
+        }
+
+        const {id: creatorId, nickname: creatorNickname} = payload;
+
+       // const id = this.idGenerator.generate()
+
+        const commentDB = await this.commentsDatabase.findCommentById(idToEdit)
+
+        if(!commentDB){
+            throw new NotFoundError("Comentário com a ID informada não existe")
+        }
+
+        if(payload.id !== commentDB.creator_id){
+            throw new ForbiddenError("Somente quem criou o comentário pode editá-lo")
+        }
+
+        const comment = new Comments(
+            commentDB.id,
+            commentDB.id_post,
+            commentDB.creator_id,
+            payload.nickname,
+            commentDB.message,
+            commentDB.likes,
+            commentDB.dislikes,
+            commentDB.created_at,
+            commentDB.updated_at
+
+        )
+
+        comment.setMessage(message)
+        
+        const updatedCommentDB = comment.CommentsToDBModel()
+        await this.commentsDatabase.updateComment(updatedCommentDB)
+
+        
+        const output: EditCommentOutputDTO = undefined
+
+        return output
     }
 
     public deleteComment = async (input: DeleteCommentInputDTO): Promise<DeleteCommentOutputDTO> => {
@@ -107,6 +163,7 @@ export class CommentsBusiness {
         }
 
         await this.commentsDatabase.deleteCommentById(idToDelete)
+        await this.commentsDatabase.decrementComments(commentDB.id)
         
         const output: DeleteCommentOutputDTO = undefined
 

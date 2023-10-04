@@ -63,4 +63,11 @@ export class CommentsDatabase extends BaseDatabase {
         return result as CommentsDB | undefined
 
     }
+
+    public updateComment = async (commentDB: CommentsDB): Promise<void> => {
+        await BaseDatabase
+            .connection(CommentsDatabase.TABLE_COMMENTS)
+            .update(commentDB)
+            .where({id: commentDB.id})
+    }
 }
