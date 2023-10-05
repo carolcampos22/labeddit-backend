@@ -9,7 +9,7 @@ export interface EditCommentInputDTO {
 export type  EditCommentOutputDTO = undefined
 
 export const EditCommentSchema = z.object({
-    comment: z.string().min(1).optional(),
+    message: z.string().min(1).optional(),
     token: z.string().min(1),
     idToEdit: z.string().min(1)
 }).transform(data => data as EditCommentInputDTO)

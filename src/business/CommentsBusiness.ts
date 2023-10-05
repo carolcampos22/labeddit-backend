@@ -102,8 +102,6 @@ export class CommentsBusiness {
             throw new UnauthorizedError()
         }
 
-        const {id: creatorId, nickname: creatorNickname} = payload;
-
        // const id = this.idGenerator.generate()
 
         const commentDB = await this.commentsDatabase.findCommentById(idToEdit)
