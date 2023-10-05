@@ -34,6 +34,7 @@ export class CommentsDatabase extends BaseDatabase {
                 "=",
                 `${UserDatabase.TABLE_USERS}.id`
             )
+            .where(`${CommentsDatabase.TABLE_COMMENTS}.id_post`, '=', idPost)
 
         return result as CommentsDBWithCreatorNickname[]
     }
@@ -65,6 +66,7 @@ export class CommentsDatabase extends BaseDatabase {
     }
 
     public updateComment = async (commentDB: CommentsDB): Promise<void> => {
+      
         await BaseDatabase
             .connection(CommentsDatabase.TABLE_COMMENTS)
             .update(commentDB)
