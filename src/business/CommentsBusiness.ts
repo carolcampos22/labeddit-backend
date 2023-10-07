@@ -3,6 +3,7 @@ import { CreateCommentInputDTO, CreateCommentOutputDTO } from "../dtos/comments/
 import { DeleteCommentInputDTO, DeleteCommentOutputDTO } from "../dtos/comments/deleteComment.dto";
 import { EditCommentInputDTO, EditCommentOutputDTO } from "../dtos/comments/editComments.dto";
 import { GetCommentsInputDTO, GetCommentsOutoutDTO } from "../dtos/comments/getComments.dto";
+import { LikeOrDislikeCommentInputDTO, LikeOrDislikeCommentOutputDTO } from "../dtos/comments/likeOrDislikeComment.dto";
 import { BadRequestError } from "../errors/BadRequestError";
 import { ForbiddenError } from "../errors/ForbiddenError";
 import { NotFoundError } from "../errors/NotFoundError";
@@ -169,5 +170,5 @@ export class CommentsBusiness {
 
     }
 
-    
+      
 }
