@@ -56,7 +56,7 @@ Além dessas tecnologias, foram utilizados conceitos de arquitetura em camadas e
 Agora, o servidor estará rodando em http://localhost:3000. Você pode utilizar o [Postman](https://www.postman.com/) ou outra ferramenta de sua preferência para testar os endpoints.
 
 ## Documentação da API
-A documentação da API está disponível aqui.
+A documentação da API está disponível [aqui](https://documenter.getpostman.com/view/26570634/2s9YJgTLat).
 
 ## Estruturação das pastas do projeto
 
