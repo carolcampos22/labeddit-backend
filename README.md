@@ -78,7 +78,7 @@ Endpoint para visualização dos comentários de um post, ao passar o ID desse p
 
 Todos os endpoints são protegidos, ou seja, é necessário um token para criação e visualização de posts e comentários. O token é gerado ao cadastrar um novo usuário (signup) ou fazer login no sistema.
 
-## Pessoa desenvolvedora
+## Autora
 
 #### Carolina Mendes - Web developer
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-000?style=for-the-badge&logo=linkedin&logoColor=0E76A8)](https://www.linkedin.com/in/dev-carolina-mendes/)
