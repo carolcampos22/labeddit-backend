@@ -6,6 +6,7 @@ import { CreateCommentSchema } from "../dtos/comments/createComment.dto";
 import { GetCommentsSchema } from "../dtos/comments/getComments.dto";
 import { DeleteCommentSchema } from "../dtos/comments/deleteComment.dto";
 import { EditCommentSchema } from "../dtos/comments/editComments.dto";
+import { LikeOrDislikeCommentSchema } from "../dtos/comments/likeOrDislikeComment.dto";
 
 export class CommentsController {
     constructor(
@@ -109,4 +110,6 @@ export class CommentsController {
             }
         }
     }
+
+    
 }
