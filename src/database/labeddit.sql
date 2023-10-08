@@ -73,6 +73,7 @@ VALUES
 SELECT * FROM posts;
 SELECT * FROM users;
 SELECT * FROM comments;
+SELECT * FROM likes_dislikes;
 
 DROP TABLE users;
 DROP TABLE posts;
