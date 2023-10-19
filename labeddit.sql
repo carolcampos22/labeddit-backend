@@ -11,7 +11,7 @@ CREATE TABLE users(
 
 CREATE TABLE posts(
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
-    creator_id TEXT UNIQUE NOT NULL,
+    creator_id TEXT NOT NULL,
     content TEXT NOT NULL,
     likes INTEGER DEFAULT (0) NOT NULL,
     dislikes INTEGER DEFAULT (0) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE posts(
 CREATE TABLE comments(
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     id_post TEXT NOT NULL,
-    creator_id TEXT NOT null,
+    creator_id TEXT NOT NULL,
     message TEXT NOT NULL,
     likes INTEGER DEFAULT (0) NOT NULL,
     dislikes INTEGER DEFAULT (0) NOT NULL,
