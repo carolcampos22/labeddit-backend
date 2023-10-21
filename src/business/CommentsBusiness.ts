@@ -1,4 +1,5 @@
 import { CommentsDatabase } from "../database/CommentsDatabase";
+import { PostDatabase } from "../database/PostDatabase";
 import { CreateCommentInputDTO, CreateCommentOutputDTO } from "../dtos/comments/createComment.dto";
 import { DeleteCommentInputDTO, DeleteCommentOutputDTO } from "../dtos/comments/deleteComment.dto";
 import { EditCommentInputDTO, EditCommentOutputDTO } from "../dtos/comments/editComments.dto";
@@ -16,6 +17,7 @@ import { TokenManager } from "../services/TokenManager";
 export class CommentsBusiness {
     constructor(
         private commentsDatabase: CommentsDatabase,
+        private postDatabase: PostDatabase,
         private idGenerator: IdGenerator,
         private tokenManager: TokenManager
     ) {}
@@ -43,11 +45,12 @@ export class CommentsBusiness {
                 commentDB.updated_at
             )
 
+        
             return comment.CommentsToBusinessModel()
         })
 
         const output: GetCommentsOutoutDTO = comments
-        
+               
 
         return output
 
@@ -67,10 +70,10 @@ export class CommentsBusiness {
 
         const id = this.idGenerator.generate()
 
-        const commentDB = await this.commentsDatabase.findCommentById(id)
+        const commentDB = await this.postDatabase.findPostById(idPost)
 
         if(!commentDB){
-            throw new NotFoundError("Comentário com a ID informada não existe")
+            throw new NotFoundError("Post com a ID informada não existe")
         }
 
         const comment = new Comments(
