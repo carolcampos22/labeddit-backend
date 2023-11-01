@@ -1,6 +1,6 @@
 # Labeddit
 
-Este é o repositório do backend da aplicação LabEddit. Trata-se de uma rede social no estilo Reddit, onde os usuários podem se cadastrar, postar textos, comentar posts de outros usuários, além de poder dar like e dislike nesses posts.
+Este é o repositório do backend da aplicação LabEddit. Trata-se de uma rede social no estilo Reddit, onde os usuários podem se cadastrar, postar textos, comentar posts de outros usuários, além de poder dar like e dislike nesses posts. O repositório do front-end pode ser encontrado no seguinte link: https://github.com/carolcampos22/labeddit-frontend. O site da aplicação pode ser acessado [neste link](https://labeddit-frontend-delta.vercel.app/).
  
 
 ## Requisitos
